@@ -1,7 +1,3 @@
-# Save the README content into a markdown file
-
-readme_content = """
-
 # **Car Price Prediction**
 
 This project leverages machine learning techniques to predict car prices based on key attributes such as engine size, curb weight, and horsepower. By analyzing a dataset of car specifications, the project identifies the most influential features affecting car prices and provides accurate predictions using the best-performing machine learning models.
@@ -17,8 +13,7 @@ This project leverages machine learning techniques to predict car prices based o
 5. [Installation](#installation)
 6. [Usage](#usage)
 7. [Key Features](#key-features)
-8. [Visualizations](#visualizations)
-9. [Contributing](#contributing)
+8. [Contributing](#contributing)
 
 ---
 
@@ -83,6 +78,40 @@ The primary goal of this project is to predict car prices based on various featu
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Hyscop/Car_Price_Prediction.git
+   git clone https://github.com/Hyscop/Car_Price_Prediction
    cd Car_Price_Prediction
    ```
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+---
+
+## **Usage**
+
+1. **Run the Jupyter Notebook**:
+   Open the `Car_Price_Predictions.ipynb` file and execute the cells step-by-step to reproduce the results.
+
+2. **Train Models**:
+
+   - The notebook includes code to train Linear Regression, Random Forest, and XGBoost models.
+   - Evaluate the models using metrics such as RMSE, MAE, and R² Score.
+
+3. **Visualizations**:
+   - Analyze key insights such as feature importance and actual vs. predicted prices.
+
+---
+
+## **Key Features**
+
+- Implements and evaluates multiple machine learning models.
+- Identifies influential features affecting car prices.
+- Includes hyperparameter tuning for optimal performance.
+- Provides a fully documented pipeline from data preprocessing to model evaluation.
+
+---
+
+## **Contributing**
+
+Contributions are welcome! If you would like to improve this project or add new features, feel free to fork the repository and submit a pull request. For major changes, please open an issue first to discuss what you would like to change.

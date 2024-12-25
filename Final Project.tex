@@ -1,0 +1,378 @@
+\documentclass[journal]{IEEEtran}
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+
+% Add the header for the report
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{BIM453 Introduction to Machine Learning Term Project - 2024-2025 Fall}
+
+\def\BibTeX{{
+    \rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX
+}}
+
+\begin{document}
+
+\title{Car Price Prediction Using Machine Learning}
+
+\author{
+    \IEEEauthorblockN{
+    \flushleft Mehmet Duman, 17158534936}
+    
+    \IEEEauthorblockA{
+    \flushleft \textit{Department of Computer Engineering}, mehmet\_duman@ogr.eskisehir.edu.tr}
+    
+     
+}
+
+
+
+\maketitle
+
+% Ensure the header appears on the first page
+\thispagestyle{fancy}
+
+\begin{abstract}
+This project predicts the prices of cars using machine learning techniques to provide a data-driven approach for the resale automotive market. The dataset used is from Kaggle, containing 205 records with attributes such as engine size, curb weight, horsepower, and fuel type. I explored and compared three machine learning models: Linear Regression, Random Forest, and XGBoost. The best performance was exhibited by the Random Forest model, with an RMSE of 1861.35 and an R² score of 0.96. Further tuning was done using GridSearchCV on this model. The important features that influence the car prices were identified; from those, engine size and curb weight are the strongest predictors of car prices. The final model does reliable price predictions that could help buyers and sellers in decision-making.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Machine Learning, Car Price Prediction, Regression Models, Random Forest, Hyperparameter Tuning, Feature Importance, Data Preprocessing, GridSearchCV, Model Evaluation, Kaggle Dataset.
+\end{IEEEkeywords}
+
+
+\section{Introduction}
+Setting the correct price for used cars is a very big challenge in today's automotive market. Traditional pricing methods normally depend on subjective assessment or limited data, which mostly results in inconsistencies and inaccuracies. A wrong estimate of the price may lead to financial losses for the seller or overpayment by the buyer; therefore, there is a need to develop a reliable and objective method of pricing.
+
+The project addresses the problem of car price prediction using machine learning techniques, hence providing a data-driven approach. Machine learning models are capable of identifying patterns and relationships that affect car prices from historical data represented with features such as engine size, curb weight, horsepower, fuel type, and car dimensions.
+
+This project is important because it will lead to better price estimates and, hence, fair resale with more transparency. It will also help various stakeholders—be it individual sellers or buyers, dealerships, or online car resale platforms. More precisely, it focuses on developing a model that makes accurate resale price predictions and identifies the key factors contributing to those estimates.
+\section{Proposed Methodology}
+
+Model Selection\newline
+For this project, I selected the following machine learning models for car price prediction:\vspace{2mm}
+\newline
+Linear Regression:
+\newline
+Reason: A simple, interpretable baseline model that assumes a linear relationship between features and the target variable. It serves as a foundational benchmark to compare against more complex models.\vspace{2mm}
+\newline
+Random Forest Regressor:
+\newline
+Reason: A robust ensemble method that can handle non-linear relationships and interactions between features.It reduces over-fitting by aggregating multiple decision trees, making it suitable for datasets with moderate complexity.\vspace{2mm}
+\newline
+XGBoost (Extreme Gradient Boosting):
+\newline
+Reason: A powerful gradient-boosting model known for its high performance and efficiency. XGBoost handles large datasets well, offers regularization to control overfitting, and is often used in machine learning competitions.
+These models provide a range of complexity, allowing me to compare simpler linear methods with more advanced ensemble and boosting techniques.
+
+Implementation Strategy
+Data Preprocessing:\vspace{2mm}
+
+Convert categorical features (e.g., fueltype, carbody, brand) to numerical values using Label Encoding.
+Replace text values in columns like doornumber and cylindernumber with their corresponding numerical equivalents.
+Standardize numerical features using StandardScaler to ensure consistent scaling for all models.\vspace{2mm}
+\newline
+Train-Test Split:\vspace{2mm}
+\newline
+Split the dataset into 80\% training and 20\% testing to train the models and evaluate their performance on unseen data.\vspace{2mm}
+\newline
+Model Training:\vspace{2mm}
+\newline
+Train each model on the training data.
+For the Random Forest and XGBoost models, perform hyperparameter tuning using GridSearchCV to optimize performance.\vspace{2mm}
+\newline
+Prediction:\vspace{2mm}
+\newline
+Use the trained models to predict car prices on the test dataset.
+\newline
+
+To assess the performance of each model, I use the following metrics:
+
+Root Mean Squared Error (RMSE):\vspace{2mm}
+
+Measures the average magnitude of prediction errors. Lower values indicate better performance.\newline
+Formula:\newline
+\[
+\text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2}
+\]
+
+\vspace{5mm}
+Mean Absolute Error (MAE):\vspace{2mm}
+
+Measures the average absolute difference between predicted and actual values. It is less sensitive to outliers compared to RMSE.\newline
+Formula:
+\[
+\text{MAE} = \frac{1}{n} \sum_{i=1}^n |y_i - \hat{y}_i|
+\]
+\vspace{5mm}
+R\textsuperscript{2} Score (Coefficient of Determination)
+
+Indicates how well the model explains the variability of the target variable. A score closer to 1 is better.\newline
+Formula:
+\[
+R^2 = 1 - \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{\sum_{i=1}^n (y_i - \bar{y})^2}
+\]
+\vspace{5mm}
+Testing Setup:
+\begin{itemize}
+    \item \textbf{Hardware:}
+    \begin{itemize}
+        \item \textbf{CPU:} Intel Core i7 7700HQ
+        \item \textbf{RAM:} 32 GB
+        \item \textbf{Storage:} 256 GB SSD
+    \end{itemize}
+
+    \item \textbf{Software:}
+    \begin{itemize}
+        \item \textbf{Operating System:} Windows 10
+        \item \textbf{Programming Language:} Python 3.9
+        \item \textbf{Libraries:}
+        \begin{itemize}
+            \item \texttt{pandas} (Data Manipulation)
+            \item \texttt{numpy} (Numerical Operations)
+            \item \texttt{matplotlib} and \texttt{seaborn} (Data Visualization)
+            \item \texttt{scikit-learn} (Machine Learning Models and Utilities)
+            \item \texttt{xgboost} (XGBoost Model)
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Environment:}
+    \begin{itemize}
+        \item \textbf{Development Environment:} Jupyter Notebook in Visual Studio Code
+        \item \textbf{Virtual Environment:} Anaconda
+    \end{itemize}
+\end{itemize}
+\section{Experiments and Results}
+1. Model Training and Evaluation\newline
+The dataset was split into 80\% training and 20\% testing to ensure that the models were evaluated on unseen data. The following machine learning models were trained:
+\begin{itemize}
+    \item Linear Regression
+    \item Random Forest
+    \item XGBoost
+\end{itemize}
+The models' performance was evaluated using the following metrics:
+
+\begin{itemize}
+    \item Root Mean Squared Error (RMSE): Measures the average magnitude of prediction errors.
+    \item Mean Absolute Error (MAE): Measures the average absolute difference between predicted and actual values.
+    \item R² Score: Represents how well the model explains the variability of the target variable.
+\end{itemize}
+
+
+\begin{table}
+    \centering
+    \begin{tabular}{cccc}
+        Model & RMSE & MAE & R\textsuperscript{2}\\
+         Linear Regression&3475.90  & 2102.01 & 0.85\\
+        Random Forest &1855.76  &1304.89  &0.96 \\
+         XGBoost& 2385.04 & 1682.92 &0.93 \\
+    \end{tabular}
+    \caption{}
+    \label{tab:All Regressions Evaluation}
+\end{table}
+2. Performance Comparison of Models\newline
+The Table I* summarizes the performance of each model:
+
+
+From the results, the Random Forest model outperformed the other models, achieving the lowest RMSE and MAE, along with the highest R² Score. This indicated that the Random Forest model was the most suitable for predicting car prices.\vspace{2mm}
+
+3. Hyper-parameter Tuning
+To further optimize the Random Forest model, GridSearchCV was employed for hyper-parameter tuning. The following hyper-parameters were tuned:
+
+\begin{itemize}
+    \item max\_depth: Maximum depth of each tree
+    \item min\_samples\_leaf: Minimum number of samples required at a leaf node
+    \item min\_samples\_split: Minimum number of samples required to split a node
+    \item n\_estimators: Number of trees in the forest
+\end{itemize}
+After the hyper-parameter tuning process, the best hyper-parameters identified were:
+
+\begin{itemize}
+    \item max\_depth: 10
+    \item min\_samples\_leaf: 1
+    \item min\_samples\_split: 2
+    \item n\_estimators: 300
+\end{itemize}
+The performance of the Random Forest model after hyper-parameter tuning is shown in Table II**
+
+\begin{table}
+    \centering
+    \begin{tabular}{cccc}
+        Metric & Before Tuning & After Tuning \\
+        RMSE & 1855.76 & 1861.35 \\
+        MAE & 1304.89 & 1297.17 \\
+        R\textsuperscript{2} Score & 0.96 & 0.96  \\
+    \end{tabular}
+    \caption{}
+    \label{tab:Random Forest Metrics}
+\end{table}
+\section{Code Explanation}
+
+\subsection{1. Importing Libraries}
+
+\begin{itemize}
+    \item \textbf{Pandas} and \textbf{NumPy}: For data manipulation and numerical operations.
+    \item \textbf{Matplotlib} and \textbf{Seaborn}: For data visualization.
+    \item \textbf{Scikit-learn}: For preprocessing, model training, evaluation, and hyperparameter tuning.
+    \item \textbf{XGBoost}: For the XGBoost regression model.
+\end{itemize}
+
+\subsection{2. Data Loading and Initial Exploration}
+
+\begin{itemize}
+    \item \textbf{Dataset Loading:} The dataset is loaded using the \texttt{pandas} \texttt{read\_csv()} function.
+    \item \textbf{Initial Data Exploration:}
+    \begin{itemize}
+        \item \texttt{df.head()}: Displays the first few rows of the dataset.
+        \item \texttt{df.shape}: Returns the number of rows and columns.
+        \item \texttt{df.info()}: Provides information about the dataset, including column names and data types.
+        \item \texttt{df.describe()}: Generates summary statistics for numerical columns.
+        \item \texttt{df.isnull().sum()}: Checks for missing values.
+    \end{itemize}
+\end{itemize}
+
+\subsection{3. Exploratory Data Analysis (EDA)}
+
+\begin{itemize}
+    \item \textbf{Distribution of Car Prices:} Visualized using a histogram with \texttt{sns.histplot()} to understand the distribution of the target variable (\texttt{price}).
+    \item \textbf{Correlation Matrix Heatmap:} Visualizes correlations between numerical features using \texttt{sns.heatmap()}.
+    \item \textbf{Distribution of Numerical Features:} Plots histograms for various numerical features to analyze their distributions.
+\end{itemize}
+
+\subsection{4. Data Preprocessing}
+
+\begin{itemize}
+    \item \textbf{Feature Engineering:}
+    \begin{itemize}
+        \item Dropping \texttt{car\_ID} as it is not relevant for prediction.
+        \item Extracting car brand from the \texttt{CarName} column.
+        \item Mapping \texttt{doornumber} and \texttt{cylindernumber} to integers.
+    \end{itemize}
+    \item \textbf{Categorical Encoding:}
+    \begin{itemize}
+        \item Identifies categorical and numerical columns.
+        \item Uses \texttt{LabelEncoder} to convert categorical columns into numerical format.
+    \end{itemize}
+\end{itemize}
+
+\subsection{5. Train-Test Splitting}
+
+\begin{itemize}
+    \item Splits the dataset into \textbf{80\% training} and \textbf{20\% testing} sets using \texttt{train\_test\_split()}.
+\end{itemize}
+
+\subsection{6. Feature Scaling}
+
+\begin{itemize}
+    \item Uses \texttt{StandardScaler} to scale the numerical features, ensuring they are on the same scale, which improves model performance.
+\end{itemize}
+
+\subsection{7. Model Training and Evaluation}
+
+\begin{itemize}
+    \item \textbf{Linear Regression:} Trained using the \texttt{LinearRegression} class.
+    \item \textbf{Random Forest:} Trained using the \texttt{RandomForestRegressor} class with default parameters.
+    \item \textbf{XGBoost:} Trained using the \texttt{XGBRegressor} class.
+    \item \textbf{Evaluation:} The \texttt{evaluate\_model()} function calculates:
+    \begin{itemize}
+        \item \textbf{Root Mean Squared Error (RMSE)}
+        \item \textbf{Mean Absolute Error (MAE)}
+        \item \textbf{R\textsuperscript{2} Score}
+    \end{itemize}
+\end{itemize}
+
+\subsection{8. Hyperparameter Tuning}
+
+\begin{itemize}
+    \item Uses \textbf{GridSearchCV} to optimize the hyperparameters of the \texttt{RandomForestRegressor}.
+    \item Tuned hyperparameters include:
+    \begin{itemize}
+        \item \texttt{n\_estimators}: Number of trees in the forest.
+        \item \texttt{max\_depth}: Maximum depth of each tree.
+        \item \texttt{min\_samples\_split}: Minimum number of samples required to split a node.
+        \item \texttt{min\_samples\_leaf}: Minimum number of samples required at each leaf node.
+    \end{itemize}
+\end{itemize}
+
+\subsection{9. Feature Importance Analysis}
+
+\begin{itemize}
+    \item Uses the \texttt{feature\_importances\_} attribute of the Random Forest model to identify the most influential features.
+    \item Visualizes feature importance using a bar chart with \texttt{sns.barplot()}.
+\end{itemize}
+
+\subsection{10. Code Organization}
+
+\begin{itemize}
+    \item \textbf{Data Loading and Preprocessing:} Functions such as \texttt{read\_csv()}, \texttt{drop()}, and \texttt{map()}.
+    \item \textbf{EDA:} Visualization functions like \texttt{sns.histplot()} and \texttt{sns.heatmap()}.
+    \item \textbf{Model Training:} Classes like \texttt{LinearRegression}, \texttt{RandomForestRegressor}, and \texttt{XGBRegressor}.
+    \item \textbf{Evaluation:} The \texttt{evaluate\_model()} function for metrics and plotting.
+    \item \textbf{Hyperparameter Tuning:} Using \texttt{GridSearchCV}.
+\end{itemize}
+\section{Discussion and Conclusion}
+In this project, I aimed to predict car prices using machine learning techniques, focusing on three models: Linear Regression, Random Forest, and XGBoost. Following data preprocessing, exploratory data analysis (EDA), and model evaluation, the Random Forest model stood out as the best performer, achieving an RMSE of 1855.76 and an R² score of 0.96. Hyperparameter tuning using GridSearchCV further improved the Random Forest model’s performance, reducing the Mean Absolute Error (MAE) to 1297.17. This strong performance suggests that the Random Forest model effectively captures the non-linear relationships and interactions within the data, making it ideal for car price prediction.
+
+The analysis of feature importance highlighted engine size, curb weight, and horsepower as the most influential factors in determining car prices. This implies that vehicles with larger engines, higher curb weight, and greater horsepower are typically priced higher. Additionally, features like highway miles per gallon (MPG) offered secondary insights into vehicle efficiency and value. EDA revealed that car prices are right-skewed, meaning lower-priced cars are more common, and correlation analysis confirmed strong relationships between car prices and key numerical features.
+
+These findings have practical implications for various stakeholders. For buyers and sellers, the model offers a data-driven approach to pricing, helping sellers set competitive prices and enabling buyers to make informed purchasing decisions. Car dealerships and online resale platforms can incorporate this predictive model into their pricing strategies, enhancing transparency and trust. Understanding the primary factors influencing car prices helps prioritize key aspects during evaluations and negotiations.
+
+Despite its strong performance, the model has some limitations. The dataset does not account for subjective factors like vehicle condition, mileage, market trends, and regional preferences, which can also impact car prices. Including these variables in future iterations could further enhance prediction accuracy.
+
+In conclusion, this study demonstrates the effectiveness of machine learning techniques in predicting car prices, showcasing the robustness of the Random Forest model for this task. Leveraging data-driven approaches can lead to more accurate, consistent, and objective pricing in the car resale market. Future work can focus on integrating more comprehensive datasets to improve the model’s real-world applicability.
+\section{Ethical Statement}
+I confirm that all experimental work in this project was carried out by me with integrity. All sources and methods used in the study have been properly cited and included in the references. No plagiarism has been committed in any part of this study.
+\section{AI Tools Usage}
+
+In this project, AI tools were utilized in various stages to enhance the quality of the report and the implementation of the code. The specific areas where AI tools were applied include:
+
+\begin{itemize}
+    \item \textbf{Formatting and LaTeX Code Generation:} AI tools were used to generate the necessary LaTeX formatting codes and mathematical formulas to ensure the documentation is presented professionally and clearly.
+    
+    \item \textbf{Language Support:} In sections where my proficiency in English was insufficient, AI tools were consulted to improve the clarity and correctness of the language used in the text.
+    
+    \item \textbf{Debugging and Guidance:} During the coding process, AI tools provided support in identifying and resolving errors, as well as suggesting appropriate steps to take when facing issues with code implementation and model training.
+\end{itemize}
+
+These AI tools significantly contributed to the overall efficiency and quality of the project, ensuring that both the documentation and code were well-structured and accurate.
+
+\section{References}
+
+\begin{enumerate}
+
+    \item H. Buoy, “Car Price Prediction Dataset,” Kaggle, 2021. [Online]. Available: \url{https://www.kaggle.com/datasets/hellbuoy/car-price-prediction/data}. [Accessed: June 18, 2024].
+
+    \item F. Pedregosa \textit{et al.}, “Scikit-learn: Machine Learning in Python,” \textit{Journal of Machine Learning Research}, vol. 12, pp. 2825–2830, 2011.
+
+    \item T. Chen and C. Guestrin, “XGBoost: A Scalable Tree Boosting System,” in \textit{Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD '16)}, 2016, pp. 785–794.
+
+    \item W. McKinney, “Data Structures for Statistical Computing in Python,” in \textit{Proceedings of the 9th Python in Science Conference (SciPy 2010)}, 2010, pp. 56–61.
+
+    \item J. Hunter, “Matplotlib: A 2D Graphics Environment,” \textit{Computing in Science \& Engineering}, vol. 9, no. 3, pp. 90–95, 2007.
+
+    \item M. L. Waskom, “Seaborn: Statistical Data Visualization,” \textit{Journal of Open Source Software}, vol. 6, no. 60, p. 3021, 2021.
+
+    \item Stack Overflow User, “How to map values in a DataFrame column,” Stack Overflow, 2016. [Online]. Available: \url{https://stackoverflow.com/questions/19798153/how-to-map-values-in-a-dataframe-column}. [Accessed: June 18, 2024].
+
+    \item Stack Overflow User, “How to encode categorical features using LabelEncoder,” Stack Overflow, 2017. [Online]. Available: \url{https://stackoverflow.com/questions/24458645/label-encoding-across-multiple-columns-in-scikit-learn}. [Accessed: June 18, 2024].
+
+    \item Stack Overflow User, “How to create a heatmap in Seaborn,” Stack Overflow, 2015. [Online]. Available: \url{https://stackoverflow.com/questions/29432629/plot-correlation-matrix-using-seaborn}. [Accessed: June 18, 2024].
+
+    \item Stack Overflow User, “How to split data into train and test sets,” Stack Overflow, 2013. [Online]. Available: \url{https://stackoverflow.com/questions/38250710/how-to-split-data-into-train-and-test-sets-in-sklearn}. [Accessed: June 18, 2024].
+
+    \item Stack Overflow User, “Hyperparameter tuning with GridSearchCV,” Stack Overflow, 2018. [Online]. Available: \url{https://stackoverflow.com/questions/42222325/how-to-use-gridsearchcv-in-sklearn}. [Accessed: June 18, 2024].
+
+\end{enumerate}
+
+
+\end{document}
